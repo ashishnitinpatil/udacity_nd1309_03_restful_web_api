@@ -27,9 +27,9 @@ e.g.
 
 ### Prerequisites
 
-Installing Node and NPM is pretty straightforward using the installer package available from the (Node.js® web site)[https://nodejs.org/en/].
+Installing Node and NPM is pretty straightforward using the installer package available from the [Node.js® web site](https://nodejs.org/en/).
 
-- Use NPM to install all dependencies
+Use NPM to install all dependencies
 ```
 npm install
 ```
