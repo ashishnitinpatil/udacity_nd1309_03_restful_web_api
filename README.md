@@ -1,5 +1,5 @@
 # Restful Web APIs
-------------------
+
 Project #3 of Udacity Blockchain Developer Nanodegree (ND1309)
 
 
