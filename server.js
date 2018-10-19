@@ -1,13 +1,55 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+
+const Block = require('./block');
+const Blockchain = require('./simpleChain');
+
 
 const app = express();
-const port = 3000;
+const PORT = 3000;
 
-module.exports = {
-    app,
-    port,
-};
+// for parsing application/json
+app.use(bodyParser.json());
+// for parsing application/x-www-form-urlencoded
+// app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => res.send('Hello World!'));
+// index
+app.get('/', function(req, res) {
+    res.status(404).json({
+        'error': `Valid Endpoints - 1. GET: /block/<height> & 2. POST: /block`
+    });
+});
 
-app.listen(port, () => console.log(`Server listening on port ${port}!`));
+// get block
+app.get('/block/:height', async function(req, res) {
+    try {
+        const block = await Blockchain.getBlock(req.params.height);
+        res.status(200).json(block);
+    } catch(err) {
+        res.status(404).json({
+            'error': `Could not get block #${req.params.height}: ${err}`
+        });
+    }
+});
+
+// create block
+app.post('/block', async function(req, res) {
+    data = req.body.data;
+    if (data === undefined) {
+        res.status(400).json({'error': 'missing "data" key in request body'});
+        return;
+    }
+    block = new Block(data);
+
+    try {
+        const newBlock = await Blockchain.addBlock(block);
+        res.status(201).json(block);
+    } catch (err) {
+        res.status(500).json({'error': 'Could not add block: ${err}'});
+    }
+});
+
+
+app.listen(PORT, () => console.log(`Server listening on port ${PORT}!`));
+
+module.exports = app;
