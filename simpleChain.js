@@ -103,11 +103,7 @@ class Blockchain {
 }
 
 
-module.exports = {
-	Block,
-	Blockchain,
-}
-
+module.exports = new Blockchain();
 
 
 /* ===== Testing ===========================================
