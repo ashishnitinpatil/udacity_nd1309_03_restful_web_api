@@ -11,25 +11,35 @@ It primarily provides the following endpoints
 
 - GET `/block/<block-height>`
 - POST `/block`  
-    `data: <block-data>`
+    `body: <block-data>`
 
-Both endpoints should return (for valid `block-height` and `block-data`) the corresponding block in the JSON response.
 e.g.
 ```
+$ curl http://localhost:8000/block/0
 {
-   "hash": "6a74771c27d4ed065c2913075c4c3f4327422dd7d72af30ecb5abf76094f3b6d",
-   "height": 1,
-   "body": "New test block",
-   "time": "1539968434793",
-   "previousBlockHash": "4224767e2443e8d78786484d8f78117b0703d10574f294d61108e92e61571c82"
+   "hash": "5a42bcc937c2da2d39f43393b9712f21de58d1087d7a4184b420dbd75d9ac550",
+   "height": 0,
+   "body": "Genesis block",
+   "time": "1540028273724",
+   "previousBlockHash": ""
+}
+```
+```
+$ curl -X "POST" "http://localhost:8000/block" -H 'Content-Type: application/json' -d $'{"body":"New block"}'
+{
+    "hash": "1ff05eea43a7aa092c345b497930613d06c86341cb2aa7c12648e97f9a003c2e",
+    "height": 1,
+    "body": "New block",
+    "time": "1540028275653",
+    "previousBlockHash": "5a42bcc937c2da2d39f43393b9712f21de58d1087d7a4184b420dbd75d9ac550"
 }
 ```
 
 ### Prerequisites
 
-Installing Node and NPM is pretty straightforward using the installer package available from the (Node.js® web site)[https://nodejs.org/en/].
+Installing Node and NPM is pretty straightforward using the installer package available from the [Node.js® web site](https://nodejs.org/en/).
 
-- Use NPM to install all dependencies
+Use NPM to install all dependencies
 ```
 npm install
 ```

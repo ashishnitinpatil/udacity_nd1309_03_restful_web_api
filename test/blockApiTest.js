@@ -57,10 +57,10 @@ describe('POST /block', function() {
 });
 
 describe('POST /block', function() {
-    it('Throw error for missing body key in POST', function(done) {
+    it('Throw error for empty body key in POST', function(done) {
         server
         .post('/block')
-        .send({'invalid': 'invalid'})
+        .send({'body': ''})
         .expect('Content-Type', /json/)
         .expect(400)
         .end((err, res) => {
@@ -72,7 +72,7 @@ describe('POST /block', function() {
 });
 
 describe('POST /block', function() {
-    it('Throw error for empty POST body', function(done) {
+    it('Throw error for missing body key in POST', function(done) {
         server
         .post('/block')
         .expect('Content-Type', /json/)
