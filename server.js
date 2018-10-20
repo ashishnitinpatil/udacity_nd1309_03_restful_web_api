@@ -6,7 +6,7 @@ const Blockchain = require('./simpleChain');
 
 
 const app = express();
-const PORT = 3000;
+const PORT = 8000;
 
 // for parsing application/json
 app.use(bodyParser.json());
@@ -34,9 +34,9 @@ app.get('/block/:height', async function(req, res) {
 
 // create block
 app.post('/block', async function(req, res) {
-    data = req.body.data;
-    if (data === undefined) {
-        res.status(400).json({'error': 'missing "data" key in request body'});
+    data = req.body.body;
+    if (data === undefined || typeof data !== 'string') {
+        res.status(400).json({'error': 'invalid "body" key in request body'});
         return;
     }
     block = new Block(data);
